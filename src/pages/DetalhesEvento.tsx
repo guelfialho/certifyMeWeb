@@ -1,38 +1,14 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Cabecalho from "../components/Cabecalho";
 import Rodape from "../components/Rodape";
-
-const eventosFake = [
-  {
-    id: "1",
-    nome: "Certificação ReactJS",
-    data: "25/07/2025",
-    local: "Auditório Central",
-    descricao:
-      "Workshop voltado para desenvolvedores React iniciantes/intermediários.",
-    participantes: [
-      { nome: "João Silva", email: "joao@email.com", cpf: "123.456.789-00" },
-      { nome: "Maria Souza", email: "maria@email.com", cpf: "987.654.321-00" },
-    ],
-  },
-  {
-    id: "2",
-    nome: "Certificação em UX Design",
-    data: "30/08/2025",
-    local: "Sala 204, Prédio B",
-    descricao: "Treinamento intensivo sobre princípios e práticas de UX.",
-    participantes: [
-      { nome: "Carlos Lima", email: "carlos@email.com", cpf: "321.654.987-00" },
-      { nome: "Ana Martins", email: "ana@email.com", cpf: "456.789.123-00" },
-    ],
-  },
-];
+import { useEventos } from "../context/EventosContext";
 
 export default function DetalhesEvento() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { eventos } = useEventos();
 
-  const evento = eventosFake.find((e) => e.id === id);
+  const evento = eventos.find((e) => e.id === Number(id));
 
   if (!evento) {
     return (
@@ -59,7 +35,6 @@ export default function DetalhesEvento() {
     <>
       <Cabecalho />
       <main className="container">
-        {/* Botão de voltar FORA do card */}
         <button
           onClick={() => navigate("/organizador")}
           style={{ marginBottom: "1.5rem" }}
@@ -90,7 +65,7 @@ export default function DetalhesEvento() {
           <section>
             <h3 style={{ marginBottom: "1rem" }}>Participantes Confirmados</h3>
             <ul style={{ listStyle: "none", paddingLeft: 0 }}>
-              {evento.participantes.map((p, i) => (
+              {(evento.participantes ?? []).map((p, i) => (
                 <li
                   key={i}
                   style={{

@@ -1,60 +1,34 @@
-import { useState } from "react";
 import Cabecalho from "../components/Cabecalho";
 import Rodape from "../components/Rodape";
 import CartaoEvento from "../components/CartaoEvento";
-
-interface Evento {
-  id: number;
-  nome: string;
-  local: string;
-  data: string;
-  descricao: string;
-}
+import ModalNovoEvento from "../components/ModalNovoEvento";
+import { useState } from "react";
+import { useEventos } from "../context/EventosContext";
 
 export default function HomeOrganizador() {
-  const [eventos, setEventos] = useState<Evento[]>([
-    {
-      id: 1,
-      nome: "Semana de Computação",
-      local: "UFBA",
-      data: "2025-07-20",
-      descricao: "Evento acadêmico da computação",
-    },
-    {
-      id: 2,
-      nome: "Certificação em UX Design",
-      local: "Sala 204, Prédio B",
-      data: "2025-08-30",
-      descricao: "Treinamento intensivo sobre princípios e práticas de UX.",
-    },
-  ]);
-
-  const criarEvento = () => {
-    const nome = prompt("Nome do evento:");
-    const local = prompt("Local do evento:");
-    const data = prompt("Data do evento (AAAA-MM-DD):");
-    const descricao = prompt("Descrição:");
-    if (nome && local && data && descricao) {
-      const novoEvento: Evento = {
-        id: eventos.length + 1,
-        nome,
-        local,
-        data,
-        descricao,
-      };
-      setEventos([...eventos, novoEvento]);
-    }
-  };
+  const { eventos, adicionarEvento } = useEventos();
+  const [mostrarModal, setMostrarModal] = useState(false);
 
   return (
     <>
       <Cabecalho />
       <main className="container">
         <h2>Meus Eventos</h2>
-        <button onClick={criarEvento}>+ Adicionar Evento</button>
+        <button onClick={() => setMostrarModal(true)}>
+          + Adicionar Evento
+        </button>
         {eventos.map((evento) => (
           <CartaoEvento key={evento.id} evento={evento} />
         ))}
+        {mostrarModal && (
+          <ModalNovoEvento
+            onClose={() => setMostrarModal(false)}
+            onCriar={(novo) => {
+              adicionarEvento(novo);
+              setMostrarModal(false);
+            }}
+          />
+        )}
       </main>
       <Rodape />
     </>
