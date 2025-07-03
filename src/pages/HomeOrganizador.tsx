@@ -20,6 +20,13 @@ export default function HomeOrganizador() {
       data: "2025-07-20",
       descricao: "Evento acadêmico da computação",
     },
+    {
+      id: 2,
+      nome: "Certificação em UX Design",
+      local: "Sala 204, Prédio B",
+      data: "2025-08-30",
+      descricao: "Treinamento intensivo sobre princípios e práticas de UX.",
+    },
   ]);
 
   const criarEvento = () => {

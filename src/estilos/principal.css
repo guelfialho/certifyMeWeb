@@ -191,3 +191,7 @@ button.cta:hover {
 .mensagem a:hover {
   text-decoration: underline;
 }
+
+.card ul li:hover {
+  background-color: #f5faff;
+}
