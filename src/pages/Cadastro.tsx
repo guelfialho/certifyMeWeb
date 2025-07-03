@@ -6,23 +6,27 @@ export default function Cadastro() {
   return (
     <>
       <Cabecalho />
-      <main className="container">
-        <h2>Cadastro</h2>
-        <form>
-          <label>Nome</label>
-          <input type="text" placeholder="Seu nome completo" required />
+      <main className="container centro">
+        <section className="form-box">
+          <h2>Cadastro</h2>
+          <form>
+            <label>Nome</label>
+            <input type="text" placeholder="Seu nome completo" required />
 
-          <label>Email</label>
-          <input type="email" placeholder="seu@email.com" required />
+            <label>Email</label>
+            <input type="email" placeholder="seu@email.com" required />
 
-          <label>Senha</label>
-          <input type="password" placeholder="********" required />
+            <label>Senha</label>
+            <input type="password" placeholder="********" required />
 
-          <button type="submit">Cadastrar</button>
-        </form>
-        <p>
-          Já tem conta? <Link to="/login">Entrar</Link>
-        </p>
+            <button type="submit" className="cta">
+              Cadastrar
+            </button>
+          </form>
+          <p className="mensagem">
+            Já tem conta? <Link to="/login">Entrar</Link>
+          </p>
+        </section>
       </main>
       <Rodape />
     </>

@@ -141,3 +141,53 @@ button.cta {
 button.cta:hover {
   background-color: #005ecb;
 }
+
+/* Centro comum a formulários */
+.centro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+/* Caixa do formulário */
+.form-box {
+  background-color: white;
+  padding: 2rem 2.5rem;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-box h2 {
+  margin-bottom: 1.5rem;
+  color: #004080;
+  text-align: center;
+}
+
+.form-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-box label {
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
+  font-weight: bold;
+}
+
+.mensagem {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.mensagem a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.mensagem a:hover {
+  text-decoration: underline;
+}
