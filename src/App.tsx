@@ -5,6 +5,8 @@ import ConfirmarPresenca from "./pages/ConfirmarPresenca";
 import DetalhesEvento from "./pages/DetalhesEvento";
 import HomeOrganizador from "./pages/HomeOrganizador";
 import Login from "./pages/Login";
+import Eventoqrcode from "./pages/Eventoqrcode";
+import Certificado from "./pages/Certificado";
 
 export default function App() {
   return (
@@ -16,6 +18,8 @@ export default function App() {
         <Route path="/organizador" element={<HomeOrganizador />} />
         <Route path="/evento/:id" element={<DetalhesEvento />} />
         <Route path="/confirmar/:id" element={<ConfirmarPresenca />} />
+        <Route path="/pages/eventoqrcode/:id" element={<Eventoqrcode />} />
+        <Route path="/pages/certificado/:token" element={<Certificado />} />
       </Routes>
     </Router>
   );
