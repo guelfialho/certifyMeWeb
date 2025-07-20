@@ -1,14 +1,14 @@
 import { useParams, useNavigate } from "react-router-dom";
 import Cabecalho from "../components/Cabecalho";
 import Rodape from "../components/Rodape";
-import { useEventos } from "../context/EventosContext";
+import { useEventos } from "../hooks/useEventos";
 
 export default function DetalhesEvento() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { eventos } = useEventos();
 
-  const evento = eventos.find((e) => e.id === Number(id));
+  const evento = eventos.find((e) => e.id === id);
 
   if (!evento) {
     return (
