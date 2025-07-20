@@ -256,3 +256,12 @@ button.btn-qr {
 button.btn-qr:hover {
   background-color: #003060;
 }
+
+.mensagem-erro {
+  background-color: #ffe0e0;
+  color: #b00020;
+  padding: 8px;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}

@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { EventosProvider } from "./context/EventosContext";
-import { AuthProvider } from "./context/AuthContext";
 
 import Inicial from "./pages/Inicial";
 import Cadastro from "./pages/Cadastro";
@@ -11,6 +10,7 @@ import Login from "./pages/Login";
 import RotaPrivada from "./components/RotaPrivada";
 import Eventoqrcode from "./pages/Eventoqrcode";
 import Certificado from "./pages/Certificado";
+import { AuthProvider } from "./provider/AuthProvider";
 
 export default function App() {
   return (
