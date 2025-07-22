@@ -1,12 +1,12 @@
+import { useState } from "react";
 import Cabecalho from "../components/Cabecalho";
 import Rodape from "../components/Rodape";
 import CartaoEvento from "../components/CartaoEvento";
 import ModalNovoEvento from "../components/ModalNovoEvento";
-import { useState } from "react";
 import { useEventos } from "../hooks/useEventos";
 
 export default function HomeOrganizador() {
-  const { eventos, adicionarEvento } = useEventos();
+  const { eventos } = useEventos();
   const [mostrarModal, setMostrarModal] = useState(false);
 
   return (
@@ -23,10 +23,7 @@ export default function HomeOrganizador() {
         {mostrarModal && (
           <ModalNovoEvento
             onClose={() => setMostrarModal(false)}
-            onCriar={(novo) => {
-              adicionarEvento(novo);
-              setMostrarModal(false);
-            }}
+            onCriar={() => setMostrarModal(false)}
           />
         )}
       </main>

@@ -49,7 +49,7 @@ export default function DetalhesEvento() {
 
           <section style={{ marginBottom: "2rem" }}>
             <p>
-              <strong>Nome do evento:</strong> {evento.nome}
+              <strong>Nome do evento:</strong> {evento.titulo}
             </p>
             <p>
               <strong>Data:</strong> {evento.data}

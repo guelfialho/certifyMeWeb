@@ -1,26 +1,36 @@
-import { useState, type ReactNode } from "react";
-import type { Evento } from "../types/evento";
+import { useEffect, useState } from "react";
+import api from "../services/api";
+import type { BuscarEvento, ListarEventosResponse } from "../types/evento";
 import { EventosContext } from "../context/EventosContext";
 
-export interface EventosContextType {
-  eventos: Evento[];
-  adicionarEvento: (evento: Evento) => void;
-  setEventos: (eventos: Evento[]) => void;
-}
-
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export function EventosProvider({ children }: Props) {
-  const [eventos, setEventos] = useState<Evento[]>([]);
+  const [eventos, setEventos] = useState<BuscarEvento[]>([]);
 
-  function adicionarEvento(evento: Evento) {
-    setEventos((old) => [...old, evento]);
-  }
+  useEffect(() => {
+    async function carregarEventos() {
+      try {
+        const resposta = await api.get<ListarEventosResponse>(
+          "/eventos/organizador"
+        );
+        if (resposta.data.sucesso) {
+          setEventos(resposta.data.eventos);
+        } else {
+          console.error("Erro ao carregar eventos");
+        }
+      } catch (error) {
+        console.error("Erro na requisição:", error);
+      }
+    }
+
+    carregarEventos();
+  }, []);
 
   return (
-    <EventosContext.Provider value={{ eventos, adicionarEvento, setEventos }}>
+    <EventosContext.Provider value={{ eventos }}>
       {children}
     </EventosContext.Provider>
   );

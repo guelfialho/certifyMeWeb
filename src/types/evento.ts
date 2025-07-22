@@ -1,4 +1,3 @@
-// Interface básica do evento
 export interface Evento {
   id: string;
   titulo: string;
@@ -20,4 +19,11 @@ export interface BuscarEvento extends Evento {
 export interface ListarEventosResponse {
   sucesso: boolean;
   eventos: BuscarEvento[];
+}
+
+export interface NovoEvento {
+  titulo: string;
+  descricao?: string;
+  data: string;
+  local: string;
 }
