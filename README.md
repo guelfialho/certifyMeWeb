@@ -1,69 +1,99 @@
-# React + TypeScript + Vite
+# CertifyMeWeb - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+## Sobre o Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**CertifyMeWeb** é o frontend de um sistema para gerenciamento de eventos desenvolvido como projeto final da disciplina **Sistemas Web** da **Universidade Federal da Bahia (UFBA)**.
 
-## Expanding the ESLint configuration
+Este sistema permite que organizadores criem eventos e compartilhem QR Codes para controle de presenças. Os participantes confirmam presença via QR Code, e os organizadores podem visualizar a lista de participantes para envio posterior dos certificados.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Orientação
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Projeto orientado pela professora:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Laise Cavalcante Oliveira**
+
+---
+
+## Funcionalidades do Frontend
+
+- Interface para login e cadastro de usuários
+- Tela para visualização e gerenciamento de eventos pelo organizador
+- Visualização do QR Code para confirmação de presença
+- Página para confirmação de presença via QR Code (com formulário)
+- Navegação protegida para páginas restritas a organizadores
+
+---
+
+## Tecnologias Utilizadas
+
+- React.js com TypeScript
+- React Router para roteamento
+- Context API e Hooks para gerenciamento de estado
+- Axios para comunicação com a API backend
+
+---
+
+## Como Rodar
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/guelfialho/certifyMeWeb.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Instale as dependências:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+# ou
+yarn
 ```
+
+3. Inicie o servidor de desenvolvimento:
+
+```bash
+npm start
+# ou
+yarn start
+```
+
+4. Acesse [http://localhost:3000](http://localhost:3000) no navegador.
+
+> ⚠️ É necessário ter o backend da API rodando para que o frontend funcione corretamente.
+
+---
+
+## Estrutura do Projeto
+
+```
+/src
+  /components    # Componentes reutilizáveis
+  /context       # Contextos React para estado global
+  /hooks         # Hooks customizados
+  /pages         # Páginas do aplicativo
+  /provider      # Providers dos contextos
+  /services      # Cliente API Axios configurado
+  /types         # Tipagens TypeScript
+```
+
+---
+
+## Contato
+
+**Guél Fialho**
+[https://github.com/guelfialho](https://github.com/guelfialho)
+
+---
+
+## Licença
+
+MIT License
+
+---
+
+**CertifyMeWeb - Frontend** — Projeto final Sistemas Web - UFBA
+Orientadora: Laise Cavalcante Oliveira
