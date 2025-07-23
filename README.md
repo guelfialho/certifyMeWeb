@@ -61,7 +61,7 @@ npm start
 yarn start
 ```
 
-4. Acesse [http://localhost:3000](http://localhost:3000) no navegador.
+4. Acesse http://localhost:5173/ no navegador.
 
 > ⚠️ É necessário ter o backend da API rodando para que o frontend funcione corretamente.
 
