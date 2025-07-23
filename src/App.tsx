@@ -12,36 +12,46 @@ import Certificado from "./pages/Certificado";
 import { AuthProvider } from "./provider/AuthProvider";
 import { EventosProvider } from "./provider/EventoProvider";
 
+import { PresencasProvider } from "./provider/PresencasProvider";
+
 export default function App() {
   return (
     <AuthProvider>
       <EventosProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Inicial />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/cadastro" element={<Cadastro />} />
-            <Route
-              path="/organizador"
-              element={
-                <RotaPrivada>
-                  <HomeOrganizador />
-                </RotaPrivada>
-              }
-            />
-            <Route
-              path="/evento/:id"
-              element={
-                <RotaPrivada>
-                  <DetalhesEvento />
-                </RotaPrivada>
-              }
-            />
-            <Route path="/confirmar/:id" element={<ConfirmarPresenca />} />
-            <Route path="/pages/eventoqrcode/:id" element={<Eventoqrcode />} />
-            <Route path="/pages/certificado/:token" element={<Certificado />} />
-          </Routes>
-        </Router>
+        <PresencasProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Inicial />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/cadastro" element={<Cadastro />} />
+              <Route
+                path="/organizador"
+                element={
+                  <RotaPrivada>
+                    <HomeOrganizador />
+                  </RotaPrivada>
+                }
+              />
+              <Route
+                path="/evento/:id"
+                element={
+                  <RotaPrivada>
+                    <DetalhesEvento />
+                  </RotaPrivada>
+                }
+              />
+              <Route path="/confirmar/:id" element={<ConfirmarPresenca />} />
+              <Route
+                path="/pages/eventoqrcode/:id"
+                element={<Eventoqrcode />}
+              />
+              <Route
+                path="/pages/certificado/:token"
+                element={<Certificado />}
+              />
+            </Routes>
+          </Router>
+        </PresencasProvider>
       </EventosProvider>
     </AuthProvider>
   );

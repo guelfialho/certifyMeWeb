@@ -1,16 +1,26 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Cabecalho from "../components/Cabecalho";
 import Rodape from "../components/Rodape";
+import { usePresencas } from "../hooks/usePresencas";
 
 export default function Certificado() {
   const { token } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { confirmarPresenca } = usePresencas();
 
   const queryParams = new URLSearchParams(location.search);
   const nomeEvento = queryParams.get("nomeEvento") || "Evento";
 
   const [expirado, setExpirado] = useState(false);
+
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [erroForm, setErroForm] = useState<string | null>(null);
+  const [sucesso, setSucesso] = useState<string | null>(null);
 
   useEffect(() => {
     if (!token) {
@@ -24,6 +34,38 @@ export default function Certificado() {
       setExpirado(true);
     }
   }, [token]);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setErroForm(null);
+    setSucesso(null);
+    setLoading(true);
+
+    try {
+      if (!token) {
+        setErroForm("Token inválido.");
+        return;
+      }
+
+      await confirmarPresenca({
+        eventoId: token,
+        nome,
+        email,
+        cpf,
+      });
+
+      setSucesso("Presença confirmada com sucesso!");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setErroForm(err?.message || "Erro ao confirmar presença.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   if (expirado) {
     return (
@@ -67,6 +109,7 @@ export default function Certificado() {
         </h3>
 
         <form
+          onSubmit={handleSubmit}
           style={{
             display: "flex",
             flexDirection: "column",
@@ -77,6 +120,8 @@ export default function Certificado() {
           <input
             type="text"
             required
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
             style={{
               padding: "0.5rem",
               fontSize: "1rem",
@@ -91,6 +136,8 @@ export default function Certificado() {
           <input
             type="email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             style={{
               padding: "0.5rem",
               fontSize: "1rem",
@@ -105,6 +152,8 @@ export default function Certificado() {
           <input
             type="text"
             required
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
             style={{
               padding: "0.5rem",
               fontSize: "1rem",
@@ -115,27 +164,35 @@ export default function Certificado() {
             placeholder="000.000.000-00"
           />
 
+          {erroForm && (
+            <div style={{ color: "red", fontWeight: "600" }}>{erroForm}</div>
+          )}
+          {sucesso && (
+            <div style={{ color: "green", fontWeight: "600" }}>{sucesso}</div>
+          )}
+
           <button
             type="submit"
+            disabled={loading}
             style={{
               marginTop: "1.5rem",
               padding: "0.75rem",
-              backgroundColor: "#007BFF",
+              backgroundColor: loading ? "#80b3ff" : "#007BFF",
               color: "#fff",
               fontSize: "1rem",
               border: "none",
               borderRadius: 6,
-              cursor: "pointer",
+              cursor: loading ? "not-allowed" : "pointer",
               transition: "background-color 0.3s ease",
             }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor = "#0056b3")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "#007BFF")
-            }
+            onMouseEnter={(e) => {
+              if (!loading) e.currentTarget.style.backgroundColor = "#0056b3";
+            }}
+            onMouseLeave={(e) => {
+              if (!loading) e.currentTarget.style.backgroundColor = "#007BFF";
+            }}
           >
-            Confirmar
+            {loading ? "Confirmando..." : "Confirmar"}
           </button>
         </form>
       </div>
