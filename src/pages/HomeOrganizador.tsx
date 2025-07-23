@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useEventos } from "../hooks/useEventos";
 import Cabecalho from "../components/Cabecalho";
 import Rodape from "../components/Rodape";
 import CartaoEvento from "../components/CartaoEvento";
 import ModalNovoEvento from "../components/ModalNovoEvento";
-import { useEventos } from "../hooks/useEventos";
 
 export default function HomeOrganizador() {
-  const { eventos } = useEventos();
+  const { eventos, carregarEventos } = useEventos();
   const [mostrarModal, setMostrarModal] = useState(false);
+
+  useEffect(() => {
+    carregarEventos();
+  }, [carregarEventos]);
 
   return (
     <>

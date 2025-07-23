@@ -1,28 +1,40 @@
 import { useState } from "react";
+import { useEventos } from "../hooks/useEventos";
+import type { NovoEvento } from "../types/evento";
 
 interface Props {
   onClose: () => void;
-  onCriar: (evento: {
-    nome: string;
-    local: string;
-    data: string;
-    descricao: string;
-  }) => void;
+  onCriar: () => void;
 }
 
 export default function ModalNovoEvento({ onClose, onCriar }: Props) {
-  const [nome, setNome] = useState("");
+  const { criarNovoEvento } = useEventos();
+
+  const [titulo, setTitulo] = useState("");
   const [local, setLocal] = useState("");
   const [data, setData] = useState("");
   const [descricao, setDescricao] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (nome && local && data && descricao) {
-      onCriar({ nome, local, data, descricao });
-      onClose();
-    } else {
+
+    if (!titulo || !local || !data || !descricao) {
       alert("Preencha todos os campos");
+      return;
+    }
+
+    const novoEvento: NovoEvento = {
+      titulo,
+      local,
+      data,
+      descricao,
+    };
+
+    try {
+      await criarNovoEvento(novoEvento);
+      onCriar();
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -32,8 +44,8 @@ export default function ModalNovoEvento({ onClose, onCriar }: Props) {
         <h2>Criar Novo Evento</h2>
         <form onSubmit={handleSubmit}>
           <label>
-            Nome:
-            <input value={nome} onChange={(e) => setNome(e.target.value)} />
+            Título:
+            <input value={titulo} onChange={(e) => setTitulo(e.target.value)} />
           </label>
           <label>
             Local:
@@ -41,7 +53,11 @@ export default function ModalNovoEvento({ onClose, onCriar }: Props) {
           </label>
           <label>
             Data:
-            <input value={data} onChange={(e) => setData(e.target.value)} />
+            <input
+              type="date"
+              value={data}
+              onChange={(e) => setData(e.target.value)}
+            />
           </label>
           <label>
             Descrição:

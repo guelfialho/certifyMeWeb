@@ -27,3 +27,9 @@ export interface NovoEvento {
   data: string;
   local: string;
 }
+
+export interface CriarEventoResponse {
+  sucesso: boolean;
+  mensagem: string;
+  evento: Evento;
+}
