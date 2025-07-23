@@ -154,6 +154,7 @@ export default function Certificado() {
             required
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
+            pattern="\d{11}||\d{3}\.\d{3}\.\d{3}-\d{2}"
             style={{
               padding: "0.5rem",
               fontSize: "1rem",
