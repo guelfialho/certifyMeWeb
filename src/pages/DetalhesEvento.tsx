@@ -44,7 +44,7 @@ export default function DetalhesEvento() {
 
         <div className="card">
           <h2 style={{ color: "#004080", marginBottom: "1rem" }}>
-            Detalhes do Evento #{evento.id}
+            Detalhes do Evento
           </h2>
 
           <section style={{ marginBottom: "2rem" }}>
